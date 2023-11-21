@@ -6,7 +6,6 @@
 #include "token.h"
 #include "expr.cpp"
 #include "util.h"
-#include "stmt.cpp"
 #include "types.h"
 
 
@@ -56,24 +55,24 @@ class Parser {
         }
 
         Exprvp expression(){
-            if (match({LEFT_PAREN})){
-                return expression();
+            if (check(LEFT_PAREN)){
+                return call_expr();
             }
-            return call_expr();
+            return primary();
         }
 
-        Stmtvp declaration(){
-            try {
-                if (match({LEFT_PAREN})){
-                    if (match({DEFINE})) return function_stmt();
-                    if (match({SET})) return varDeclaration();
-                }
-                return expressionStatement();
-            } catch (string error){
-                synchronize();
-                return nullptr;
-            }
-        }
+        // Stmtvp declaration(){
+        //     try {
+        //         if (match({LEFT_PAREN})){
+        //             // if (match({DEFINE})) return function_stmt();
+        //             // if (match({SET})) return varDeclaration();
+        //         }
+        //         return expressionStatement();
+        //     } catch (string error){
+        //         synchronize();
+        //         return nullptr;
+        //     }
+        // }
 
 
         // Stmtvp ifStatement() {
@@ -90,45 +89,55 @@ class Parser {
         //     return new Ifv(condition, thenBranch, elseBranch);
         // }
 
-        Stmtvp varDeclaration(){
-            Token name = consume(IDENTIFIER, "Expect variable name.");
+        // Stmtvp varDeclaration(){
+        //     Token name = consume(IDENTIFIER, "Expect variable name.");
 
-            Exprvp initializer = expression();
+        //     Exprvp initializer = expression();
             
 
-            consume(RIGHT_PAREN, "Expect ')' to end SET call");
-            return new Setv(name, initializer);
-        }
+        //     consume(RIGHT_PAREN, "Expect ')' to end SET call");
+        //     return new Setv(name, initializer);
+        // }
 
 
-        Stmtvp expressionStatement() {
-            Exprvp expr = expression();
-            Stmtvp stmt = new Expressionv(expr);
-            return stmt;
-        }
+        // Stmtvp expressionStatement() {
+        //     Exprvp expr = expression();
+        //     Stmtvp stmt = new Expressionv(expr);
+        //     return stmt;
+        // }
 
-        Functionvp function_stmt() {
-            Token name = consume(IDENTIFIER, "Expect function name.");
+        // Functionvp function_stmt() {
+        //     Token name = consume(IDENTIFIER, "Expect function name.");
 
-            consume(LEFT_PAREN, "Expect '(' after function name.");
-            vector<Token> parameters;
+        //     consume(LEFT_PAREN, "Expect '(' after function name.");
+        //     vector<Token> parameters;
 
-            while (!check(RIGHT_PAREN)){
-                if (parameters.size() >= 255) {
-                    Util::error(peek(), "Can't have more than 255 parameters.");
-                }
+        //     while (!check(RIGHT_PAREN)){
+        //         if (parameters.size() >= 255) {
+        //             Util::error(peek(), "Can't have more than 255 parameters.");
+        //         }
 
-                parameters.push_back(
-                    consume(IDENTIFIER, "Expect parameter name.")
-                );
-            }
-            consume(RIGHT_PAREN, "Expect ')' after parameters.");
+        //         parameters.push_back(
+        //             consume(IDENTIFIER, "Expect parameter name.")
+        //         );
+        //     }
+        //     consume(RIGHT_PAREN, "Expect ')' after parameters.");
 
-            Exprvp body = expression();
-            return new Functionv(name, parameters, body);
-        }
+        //     Exprvp body = expression();
+        //     return new Functionv(name, parameters, body);
+        // }
 
         Exprvp call_expr() {
+            consume(LEFT_PAREN,  "Expect '(' at beginning of call expressions.");
+
+            if (match({DEFINE})){
+                return define_rest();
+            }
+
+            if (match({SET})){
+                return set_rest();
+            }
+
             Exprvp expr = primary();
 
             vector<Exprvp> arguments;
@@ -139,12 +148,46 @@ class Parser {
                 arguments.push_back(expression());
             }
 
-            cout << "exit out" << endl;
+            consume(RIGHT_PAREN,  "Expect ')' after arguments.");
 
-            Token paren = consume(RIGHT_PAREN,  "Expect ')' after arguments.");
-
-            return new Callv(expr, paren, arguments);
+            return new Callv(expr, arguments);
         }
+
+        Exprvp define_rest(){
+            Token funcName = consume(IDENTIFIER, "Expected identifer after define");
+            vector<Token> params;
+
+            if (!match({NIL})){
+                consume(LEFT_PAREN, "Expected ( after function name");
+            
+                while(!check(RIGHT_PAREN)){
+                    if (params.size() >= 255) {
+                        Util::error(peek(), "Can't have more than 255 arguments.");
+                    }
+                    params.push_back(consume(IDENTIFIER, "Expected identifier as parameter of function"));
+                }
+
+                consume(RIGHT_PAREN,  "Expect ')' after function parameters.");
+            }
+            
+
+            Exprvp function_body = expression();
+
+            consume(RIGHT_PAREN,  "Expect ')' at end of define call.");
+
+            return new Functionv(funcName, params, function_body);
+        }
+
+        Exprvp set_rest(){
+            Token varName = consume(IDENTIFIER, "Expected identifer for variable name");
+
+            Exprvp value = expression();
+
+            consume(RIGHT_PAREN,  "Expect ')' at end of set call.");
+
+            return new Setv(varName, value);
+        }
+
 
         Exprvp primary(){
             if (match({FALSE})) {
@@ -160,14 +203,15 @@ class Parser {
             }
 
             // operators
-            if (match({PLUS, MINUS, SLASH, STAR, EQUAL_EQUAL})){
-                cout << "match op: " << previous().lexeme << endl;
+            if (match({
+                PLUS, MINUS, SLASH, STAR, EQUAL_EQUAL,
+                GREATER, GREATER_EQUAL, LESS, LESS_EQUAL
+            })){
                 return new Opv(previous());
             }
             
 
             if (match({NUMBER, STRING})) {
-                cout << "match number or string" << endl;
                 return new Litv(previous().literal);
             }
 
@@ -212,11 +256,11 @@ class Parser {
             this->tokens = tokens;
         }
 
-        vector<Stmtvp> parse(){
-            vector<Stmtvp> expr;
+        vector<Exprvp> parse(){
+            vector<Exprvp> expr;
             try{
                 while (!isAtEnd()){
-                    expr.push_back(declaration());
+                    expr.push_back(expression());
                 }
             } catch(string error){
                 std::cerr << error << endl;
