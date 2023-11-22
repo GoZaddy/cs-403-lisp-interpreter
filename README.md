@@ -5,6 +5,10 @@
 - Cons cell concepts
 - List concept - closely tied to literals
 - Literals
+- car
+- cdr
+- List  -> function to make a list out of arguments
+
 
 
 
