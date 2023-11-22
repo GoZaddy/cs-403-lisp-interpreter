@@ -14,7 +14,7 @@ class LoxFunction: public LoxCallable{
 
         LoxFunction(Functionvp declaration, Environment* closure);
 
-        rv call(Interpreter* interpreter, std::vector<rv> arguments, Token calleeToken);
+        rv call(Interpreter* interpreter, std::vector<Exprvp> arguments, Token calleeToken);
 
         int arity();
 

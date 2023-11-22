@@ -30,7 +30,7 @@ void Resolver::endScope(){
 }
 
 rv Resolver::visit(Setvp stmt) {
-    if (scopes->size() > 1){
+    if (scopes->size() > 0){
         Util::error(stmt->name, "set can only be used in the global scope");
     } else {
         declare(stmt->name);

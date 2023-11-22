@@ -16,7 +16,7 @@ class Clock : public LoxCallable{
 
         rv call(
             Interpreter* interpreter,
-            std::vector<rv> arguments,
+            std::vector<Exprvp> arguments,
             Token calleeToken
         );
 
@@ -35,7 +35,7 @@ class Clock : public LoxCallable{
 
 //         rv call(
 //             Interpreter* interpreter,
-//             std::vector<rv> arguments,
+//             std::vector<Exprvp> arguments,
 //             Token calleeToken
 //         );
 
@@ -49,116 +49,229 @@ class Add : public LoxCallable{
 
         rv call(
             Interpreter* interpreter,
-            std::vector<rv> arguments,
+            std::vector<Exprvp> arguments,
             Token calleeToken
         );
 
         std::string toString();
 };
 
-// class Sub : public LoxCallable{
-//     public:
-//         int arity();
+class Sub : public LoxCallable{
+    public:
+        int arity();
 
-//         rv call(
-//             Interpreter* interpreter,
-//             std::vector<rv> arguments,
-//             Token calleeToken
-//         );
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
 
-//         std::string toString();
-// };
+        std::string toString();
+};
 
-// class Divide : public LoxCallable{
-//     public:
-//         int arity();
+class Divide : public LoxCallable{
+    public:
+        int arity();
 
-//         rv call(
-//             Interpreter* interpreter,
-//             std::vector<rv> arguments,
-//             Token calleeToken
-//         );
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
 
-//         std::string toString();
-// };
+        std::string toString();
+};
 
-// class Mul : public LoxCallable{
-//     public:
-//         int arity();
+class Mul : public LoxCallable{
+    public:
+        int arity();
 
-//         rv call(
-//             Interpreter* interpreter,
-//             std::vector<rv> arguments,
-//             Token calleeToken
-//         );
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
 
-//         std::string toString();
-// };
+        std::string toString();
+};
 
-// class Greater : public LoxCallable{
-//     public:
-//         int arity();
+class Greater : public LoxCallable{
+    public:
+        int arity();
 
-//         rv call(
-//             Interpreter* interpreter,
-//             std::vector<rv> arguments,
-//             Token calleeToken
-//         );
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
 
-//         std::string toString();
-// };
+        std::string toString();
+};
 
-// class GreaterEqual : public LoxCallable{
-//     public:
-//         int arity();
+class GreaterEqual : public LoxCallable{
+    public:
+        int arity();
 
-//         rv call(
-//             Interpreter* interpreter,
-//             std::vector<rv> arguments,
-//             Token calleeToken
-//         );
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
 
-//         std::string toString();
-// };
+        std::string toString();
+};
 
-// class Less : public LoxCallable{
-//     public:
-//         int arity();
+class Less : public LoxCallable{
+    public:
+        int arity();
 
-//         rv call(
-//             Interpreter* interpreter,
-//             std::vector<rv> arguments,
-//             Token calleeToken
-//         );
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
 
-//         std::string toString();
-// };
+        std::string toString();
+};
 
-// class LessEqual : public LoxCallable{
-//     public:
-//         int arity();
+class LessEqual : public LoxCallable{
+    public:
+        int arity();
 
-//         rv call(
-//             Interpreter* interpreter,
-//             std::vector<rv> arguments,
-//             Token calleeToken
-//         );
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
 
-//         std::string toString();
-// };
+        std::string toString();
+};
 
-// class Equal : public LoxCallable{
-//     public:
-//         int arity();
+class Equal : public LoxCallable{
+    public:
+        int arity();
 
-//         rv call(
-//             Interpreter* interpreter,
-//             std::vector<rv> arguments,
-//             Token calleeToken
-//         );
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
 
-//         std::string toString();
-// };
+        std::string toString();
+};
+
+
+class And : public LoxCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+class Or : public LoxCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+
+class Not : public LoxCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+
+class Number : public LoxCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+
+class Symbol : public LoxCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+
+class Nil : public LoxCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+
+
+class List : public LoxCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+
+
+class Cond : public LoxCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
 
 
 #endif

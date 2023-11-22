@@ -1,4 +1,10 @@
-# Chapter 11
+# Lisp Interpreter
+
+## What's left??
+- Cons function
+- Cons cell concepts
+- List concept - closely tied to literals
+- Literals
 
 
 

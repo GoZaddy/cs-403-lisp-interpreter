@@ -69,21 +69,39 @@ class Interpreter : public ExprVisv{
 
         friend class Add;
 
-        // friend class Sub;
+        friend class Sub;
 
-        // friend class Mul;
+        friend class Mul;
 
-        // friend class Divide;
+        friend class Divide;
 
-        // friend class Equal;
+        friend class Equal;
 
-        // friend class GreaterEqual;
+        friend class GreaterEqual;
 
-        // friend class Greater;
+        friend class Greater;
 
-        // friend class LessEqual;
+        friend class LessEqual;
 
-        // friend class Less;
+        friend class Less;
+
+        friend class And;
+
+        friend class Or;
+
+        friend class Not;
+
+        friend class Number;
+
+        friend class Symbol;
+
+        friend class Nil;
+
+        friend class List;
+
+        friend class LoxFunction;
+
+        friend class Cond;
 
 };
 

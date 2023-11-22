@@ -61,18 +61,31 @@ Interpreter::Interpreter() {
     globals = new Environment();
     environment = globals;
     LoxCallable* clockFunc = new Clock();
+    LoxCallable* isEqual = new Equal();
 
     globals->defineFunc("clock", clockFunc); // TODO: figure this out, consider using a new map in Environment for just functions
 
+
     globals->defineFunc("operator<+>", new Add());
-    // globals->defineFunc("-", new Sub());
-    // globals->defineFunc("*", new Mul());
-    // globals->defineFunc("/", new Divide());
-    // globals->defineFunc("==", new Equal());
-    // globals->defineFunc(">", new Greater());
-    // globals->defineFunc(">=", new GreaterEqual());
-    // globals->defineFunc("<=", new LessEqual());
-    // globals->defineFunc("<", new Less());
+    globals->defineFunc("operator<->", new Sub());
+    globals->defineFunc("operator<*>", new Mul());
+    globals->defineFunc("operator</>", new Divide());
+    globals->defineFunc("operator<==>", isEqual);
+    globals->defineFunc("operator<>>", new Greater());
+    globals->defineFunc("operator<>=>", new GreaterEqual());
+    globals->defineFunc("operator<<=>", new LessEqual());
+    globals->defineFunc("operator<<>", new Less());
+    globals->defineFunc("and?", new And());
+    globals->defineFunc("or?", new Or());
+    globals->defineFunc("not?", new Not());
+    globals->defineFunc("number?", new Number());
+    globals->defineFunc("symbol?", new Symbol());
+    globals->defineFunc("nil?", new Nil());
+    globals->defineFunc("eq?", isEqual);
+    globals->defineFunc("list?", new List());
+    globals->defineFunc("cond", new Cond());
+
+
     
 }
 void Interpreter::interpret(std::vector<Exprvp> expr){
@@ -126,57 +139,6 @@ rv Interpreter::visit(Opvp expr){
 }
 
 
-// rv Interpreter::visit(Binv* expr){
-//     rv left = evaluate(expr->left);
-//     rv right = evaluate(expr->right);
-
-//     switch(expr->operatorToken.type){
-//         case MINUS:
-//             checkNumberOperands(expr->operatorToken, left, right);
-//             return stripTrailingZeroes(std::to_string(Util::doub(left) - Util::doub(right)));
-//         case SLASH:
-//             checkNumberOperands(expr->operatorToken, left, right);
-//             return stripTrailingZeroes(std::to_string(Util::doub(left) / Util::doub(right)));
-//         case STAR:
-//             checkNumberOperands(expr->operatorToken, left, right);
-//             return stripTrailingZeroes(std::to_string(Util::doub(left) * Util::doub(right)));
-//         case PLUS:
-//             if (isStringLiteral(left) && isStringLiteral(right)){
-//                 left.pop_back();
-//                 return left + right.substr(1);
-//             }
-            
-//             if (isNumberLiteral(left) && isNumberLiteral(right)){
-//                 return stripTrailingZeroes(std::to_string(Util::doub(left) + Util::doub(right)));
-//             }
-
-//             throw Util::runtimeError(expr->operatorToken, "Operands must be two numbers or two strings.");
-            
-//         case GREATER:
-//             checkNumberOperands(expr->operatorToken, left, right);
-//             return (Util::doub(left) > Util::doub(right)) ? "true" : "false";
-//         case GREATER_EQUAL:
-//             checkNumberOperands(expr->operatorToken, left, right);
-//             return (Util::doub(left) >= Util::doub(right)) ? "true" : "false";
-//         case LESS:
-//             checkNumberOperands(expr->operatorToken, left, right);
-//             return (Util::doub(left) < Util::doub(right)) ? "true" : "false";
-//         case LESS_EQUAL:
-//             checkNumberOperands(expr->operatorToken, left, right);
-//             return (Util::doub(left) <= Util::doub(right)) ? "true" : "false";
-            
-//         case BANG_EQUAL:
-//             return isEqual(left, right) ? "false" : "true";
-//         case EQUAL_EQUAL:
-//             return isEqual(left, right) ? "true" : "false";
-            
-
-//         default:
-//             //unreachable
-//             return "";
-//     }
-// }
-
 rv Interpreter::visit(Callvp expr) {
     rv callee = evaluate(expr->callee);
 
@@ -197,22 +159,18 @@ rv Interpreter::visit(Callvp expr) {
         throw Util::runtimeError(calleeToken, "Can only call functions and operators.");
     }
 
-    std::vector<rv> arguments;
-    for (auto argument : expr->arguments) { 
-        arguments.push_back(evaluate(argument));
-    }
 
 
     LoxCallable* func = environment->getCallable(callee); // figure this out
 
     
 
-    if (arguments.size() != func->arity()) {
+    if (func->arity() != -1 && expr->arguments.size() != func->arity()) {
         throw Util::runtimeError(calleeToken, "Expected " +
             std::to_string(func->arity()) + " arguments but got " +
-            std::to_string(arguments.size()) + ".");
+            std::to_string(expr->arguments.size()) + ".");
     }
-    return func->call(this, arguments, calleeToken);
+    return func->call(this, expr->arguments, calleeToken);
 }
 
 rv Interpreter::visit(Variablevp expr){

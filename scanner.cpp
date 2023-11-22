@@ -15,7 +15,6 @@ const unordered_map<string, TokenType> Scanner::keywords = {
         {"'t", TRUE},
         {"define", DEFINE},
         {"set", SET},
-        {"cond", COND}
 };
 
 Scanner::Scanner (string source) {
@@ -180,7 +179,7 @@ void Scanner::scanToken(){
         default:
             if (isdigit(c)){
                 number();
-            } else if (isAlpha(c)){
+            } else if (isAlpha(c)){ //TODO: need to add "'" to allowed alpha so we can process literals
                 identifier();
             } else {
                 Util::error(line, "Unexpected character.");

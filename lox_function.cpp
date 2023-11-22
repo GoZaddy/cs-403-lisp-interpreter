@@ -5,13 +5,13 @@ LoxFunction::LoxFunction(Functionvp declaration, Environment* closure){
     this->declaration = declaration;
 }
 
-rv LoxFunction::call(Interpreter* interpreter, std::vector<rv> arguments, Token calleeToken){
+rv LoxFunction::call(Interpreter* interpreter, std::vector<Exprvp> arguments, Token calleeToken){
     Environment* environment = new Environment(closure);
     
     for (int i = 0; i < declaration->params.size(); i++) {
         environment->define(
             declaration->params[i].lexeme,
-            arguments[i]
+            interpreter->evaluate(arguments[i])
         );
     }
 

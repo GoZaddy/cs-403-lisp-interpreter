@@ -10,7 +10,7 @@ class Interpreter;
 class LoxCallable{
     public:
         virtual int arity() = 0;
-		virtual rv call(Interpreter* interpreter, std::vector<rv> arguments, Token calleeToken) = 0;
+		virtual rv call(Interpreter* interpreter, std::vector<Exprvp> arguments, Token calleeToken) = 0;
 };
 
 #endif
