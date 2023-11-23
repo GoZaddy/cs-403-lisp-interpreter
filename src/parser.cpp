@@ -3,10 +3,10 @@
 
 #include <vector>
 #include <iostream>
-#include "token.h"
-#include "expr.cpp"
-#include "util.h"
-#include "types.h"
+#include "include/token.h"
+#include "src/expr.cpp"
+#include "include/util.h"
+#include "include/types.h"
 
 
 class Parser {

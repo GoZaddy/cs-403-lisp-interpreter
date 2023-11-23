@@ -1,4 +1,4 @@
-#include "lox_function.h"
+#include "include/lox_function.h"
 
 LoxFunction::LoxFunction(Functionvp declaration, Environment* closure){
     this->closure = closure;

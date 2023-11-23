@@ -1,9 +1,8 @@
-#ifndef LOX_FUNCTION_H
-#define LOX_FUNCTION_H
+#pragma once
 
-#include "lox_callable.h"
-#include "types.h"
-#include "interpreter.h"
+#include "include/lox_callable.h"
+#include "include/types.h"
+#include "include/interpreter.h"
 
 class LoxFunction: public LoxCallable{
     private:
@@ -20,5 +19,3 @@ class LoxFunction: public LoxCallable{
 
         std::string toString();
 };
-
-#endif

@@ -156,7 +156,7 @@ void defineAst(
 
     fileStream << "#include <string>" << endl;
     fileStream << "#include <vector>" << endl;
-    fileStream << "#include \"token.h\"" << endl;
+    fileStream << "#include \"include/token.h\"" << endl;
     fileStream << beginningStatements << endl;
     fileStream << "using namespace std;" << endl << endl;
 

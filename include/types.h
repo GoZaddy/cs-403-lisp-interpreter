@@ -1,7 +1,6 @@
-#ifndef TYPES_H
-#define TYPES_H
+#pragma once
 
-#include "expr.cpp"
+#include "src/expr.cpp"
 
 
 
@@ -32,6 +31,3 @@ typedef Set<rv> Setv;
 typedef Setv* Setvp;
 typedef Function<rv> Functionv;
 typedef Functionv* Functionvp;
-
-
-#endif

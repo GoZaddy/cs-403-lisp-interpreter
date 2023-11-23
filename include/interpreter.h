@@ -1,16 +1,15 @@
-#ifndef INTERPRETER_H
-#define INTERPRETER_H
+#pragma once
 
 
 #include <iostream>
-#include "util.h"
+#include "include/util.h"
 #include <cstdlib>
-#include "types.h"
+#include "include/types.h"
 #include <vector>
-#include "environment.h"
-#include "native_funcs.h"
-#include "lox_callable.h"
-#include "lox_function.h"
+#include "include/environment.h"
+#include "include/native_funcs.h"
+#include "include/lox_callable.h"
+#include "include/lox_function.h"
 #include <sstream>
 
 class Interpreter : public ExprVisv{
@@ -121,6 +120,3 @@ class Interpreter : public ExprVisv{
         friend class Cons;
 
 };
-
-
-#endif

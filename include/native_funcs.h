@@ -1,10 +1,9 @@
-#ifndef NATIVE_FUNCS_H
-#define NATIVE_FUNCS_H
+#pragma once
 
-#include "interpreter.h"
-#include "lox_callable.h"
+#include "include/interpreter.h"
+#include "include/lox_callable.h"
 #include <string>
-#include "types.h"
+#include "include/types.h"
 #include <vector>
 #include <chrono>
 
@@ -329,5 +328,3 @@ class Cons : public LoxCallable{
 
         std::string toString();
 };
-
-#endif

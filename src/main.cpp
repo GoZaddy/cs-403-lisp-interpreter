@@ -2,12 +2,12 @@
 #include <fstream>
 #include <sstream>
 
-#include "scanner.h"
-#include "parser.cpp"
-#include "ast_printer.cpp"
-#include "util.h"
-#include "interpreter.h"
-#include "resolver.h"
+#include "include/scanner.h"
+#include "src/parser.cpp"
+// #include "src/ast_printer.cpp"
+#include "include/util.h"
+#include "include/interpreter.h"
+#include "include/resolver.h"
 
 using namespace std;
 
@@ -37,7 +37,7 @@ void run(string source){
 
     if (Util::hadError) return;
 
-    AstPrinter asp;
+    // AstPrinter asp;
     
 
     // for(auto expr : exprs){

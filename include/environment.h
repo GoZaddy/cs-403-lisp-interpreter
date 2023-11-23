@@ -1,12 +1,11 @@
-#ifndef ENVIRONMENT_H
-#define ENVIRONMENT_H
+#pragma once
 
 #include <unordered_map>
 #include <string>
-#include "token.h"
-#include "util.h"
+#include "include/token.h"
+#include "include/util.h"
 #include <iostream>
-#include "lox_callable.h"
+#include "include/lox_callable.h"
 
 typedef std::string string;
 
@@ -41,5 +40,3 @@ class Environment{
         void assignAt(int distance, Token name, string value);
         
 };
-
-#endif

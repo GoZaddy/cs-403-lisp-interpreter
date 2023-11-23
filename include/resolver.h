@@ -1,8 +1,7 @@
-#ifndef RESOLVER_H
-#define RESOLVER_H
+#pragma once
 
-#include "types.h"
-#include "interpreter.h"
+#include "include/types.h"
+#include "include/interpreter.h"
 #include <unordered_map>
 #include "helper/custom_stack.h"
 
@@ -57,6 +56,3 @@ class Resolver: ExprVisv{
         rv visit(Printvp expr);
 
 };
-
-
-#endif

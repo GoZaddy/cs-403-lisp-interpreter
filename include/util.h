@@ -1,8 +1,7 @@
-#ifndef UTIL_H
-#define UTIL_H
+#pragma once
 
 #include <string>
-#include "token.h"
+#include "include/token.h"
 
 
 class Util{
@@ -21,5 +20,3 @@ class Util{
         static std::string runtimeError(Token token, std::string message);
 
 };
-
-#endif

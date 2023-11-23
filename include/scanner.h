@@ -2,14 +2,13 @@
 // Created by Faruq Yusuff on 10/18/23.
 //
 
-#ifndef LOX_INTERPRETER_SCANNER_H
-#define LOX_INTERPRETER_SCANNER_H
+#pragma once
 
 #include <string>
 #include <vector>
 #include <unordered_map>
 
-#include "token.h"
+#include "include/token.h"
 
 using namespace std; // todo: remove - bad practice
 
@@ -54,7 +53,3 @@ class Scanner {
 
         void scanToken();
 };
-
-
-
-#endif //LOX_INTERPRETER_SCANNER_H

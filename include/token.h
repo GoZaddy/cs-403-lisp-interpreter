@@ -1,5 +1,4 @@
-#ifndef TOKEN_H
-#define TOKEN_H
+#pragma once
 
 #include <string>
 
@@ -39,5 +38,3 @@ class Token {
         Token() = default;
         std::string toString();
 };
-
-#endif

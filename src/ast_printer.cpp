@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <sstream>
-#include "token.h"
-#include "types.h"
+#include "include/token.h"
+#include "include/types.h"
 
 using namespace std;
 
