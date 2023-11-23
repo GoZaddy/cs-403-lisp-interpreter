@@ -1,11 +1,11 @@
-#include "include/scanner.h"
+#include "../include/scanner.h"
 #include <string>
 #include <vector>
 #include <unordered_map>
 #include <iostream>
 
-#include "include/util.h"
-#include "include/token.h"
+#include "../include/util.h"
+#include "../include/token.h"
 
 using namespace std;
 

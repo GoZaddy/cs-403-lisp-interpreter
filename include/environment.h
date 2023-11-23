@@ -2,21 +2,21 @@
 
 #include <unordered_map>
 #include <string>
-#include "include/token.h"
-#include "include/util.h"
+#include "token.h"
+#include "util.h"
 #include <iostream>
-#include "include/lox_callable.h"
+#include "lisp_callable.h"
 
 typedef std::string string;
 
 class Environment{
     private:
         std::unordered_map<string, string> values;
-        std::unordered_map<string, LoxCallable*> funcMap;
+        std::unordered_map<string, LispCallable*> funcMap;
         Environment* enclosing;
 
 
-        LoxCallable* getCallable(string key);
+        LispCallable* getCallable(string key);
 
         Environment* ancestor(int distance); 
 
@@ -29,7 +29,7 @@ class Environment{
 
         void define(string name, string value);
 
-        void defineFunc(string name, LoxCallable* func);
+        void defineFunc(string name, LispCallable* func);
 
         string get(Token name);
 

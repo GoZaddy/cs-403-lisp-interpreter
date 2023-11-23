@@ -1,4 +1,4 @@
-Our book builds a complete interpreter for the Lox language in Java.
+Our book builds a complete interpreter for the Lisp language in Java.
 
 Follow along in the language of your choice (not java).
 

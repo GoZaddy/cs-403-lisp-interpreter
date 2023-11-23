@@ -2,12 +2,12 @@
 #include <fstream>
 #include <sstream>
 
-#include "include/scanner.h"
-#include "src/parser.cpp"
+#include "../include/scanner.h"
+#include "parser.cpp"
 // #include "src/ast_printer.cpp"
-#include "include/util.h"
-#include "include/interpreter.h"
-#include "include/resolver.h"
+#include "../include/util.h"
+#include "../include/interpreter.h"
+#include "../include/resolver.h"
 
 using namespace std;
 

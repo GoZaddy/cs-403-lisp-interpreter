@@ -1,11 +1,11 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "include/types.h"
+#include "types.h"
 
 class Interpreter;
 
-class LoxCallable{
+class LispCallable{
     public:
         virtual int arity() = 0;
 		virtual rv call(Interpreter* interpreter, std::vector<Exprvp> arguments, Token calleeToken) = 0;

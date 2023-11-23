@@ -1,17 +1,17 @@
 #pragma once
 
-#include "include/lox_callable.h"
-#include "include/types.h"
-#include "include/interpreter.h"
+#include "lisp_callable.h"
+#include "types.h"
+#include "interpreter.h"
 
-class LoxFunction: public LoxCallable{
+class LispFunction: public LispCallable{
     private:
         Environment* closure;
     public:
         Functionvp declaration;
         
 
-        LoxFunction(Functionvp declaration, Environment* closure);
+        LispFunction(Functionvp declaration, Environment* closure);
 
         rv call(Interpreter* interpreter, std::vector<Exprvp> arguments, Token calleeToken);
 

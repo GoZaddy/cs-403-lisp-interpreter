@@ -8,7 +8,7 @@
 #include <vector>
 #include <unordered_map>
 
-#include "include/token.h"
+#include "token.h"
 
 using namespace std; // todo: remove - bad practice
 

@@ -2,14 +2,14 @@
 
 
 #include <iostream>
-#include "include/util.h"
+#include "util.h"
 #include <cstdlib>
-#include "include/types.h"
+#include "types.h"
 #include <vector>
-#include "include/environment.h"
-#include "include/native_funcs.h"
-#include "include/lox_callable.h"
-#include "include/lox_function.h"
+#include "environment.h"
+#include "native_funcs.h"
+#include "lisp_callable.h"
+#include "lisp_function.h"
 #include <sstream>
 
 class Interpreter : public ExprVisv{
@@ -107,7 +107,7 @@ class Interpreter : public ExprVisv{
 
         friend class List;
 
-        friend class LoxFunction;
+        friend class LispFunction;
 
         friend class Cond;
 

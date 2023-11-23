@@ -1,7 +1,7 @@
-#include "include/environment.h"
+#include "../include/environment.h"
 
 
-LoxCallable* Environment::getCallable(string key){
+LispCallable* Environment::getCallable(string key){
     if (funcMap.find(key) != funcMap.end()){
         return funcMap[key];
     }
@@ -24,7 +24,7 @@ void Environment::define(string name, string value){
     this->values[name] = value;
 }
 
-void Environment::defineFunc(string name, LoxCallable* func){
+void Environment::defineFunc(string name, LispCallable* func){
     define(name, "()"+name);  // TODO: we should probably implement recursive assign as in assign()
     funcMap["()"+name] = func;
 }

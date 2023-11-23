@@ -3,10 +3,10 @@
 
 #include <vector>
 #include <iostream>
-#include "include/token.h"
-#include "src/expr.cpp"
-#include "include/util.h"
-#include "include/types.h"
+#include "../include/token.h"
+#include "expr.cpp"
+#include "../include/util.h"
+#include "../include/types.h"
 
 
 class Parser {
@@ -66,72 +66,6 @@ class Parser {
             }
             
         }
-
-        // Stmtvp declaration(){
-        //     try {
-        //         if (match({LEFT_PAREN})){
-        //             // if (match({DEFINE})) return function_stmt();
-        //             // if (match({SET})) return varDeclaration();
-        //         }
-        //         return expressionStatement();
-        //     } catch (string error){
-        //         synchronize();
-        //         return nullptr;
-        //     }
-        // }
-
-
-        // Stmtvp ifStatement() {
-        //     consume(LEFT_PAREN, "Expect '(' after 'if'.");
-        //     Exprvp condition = expression();
-        //     consume(RIGHT_PAREN, "Expect ')' after if condition."); 
-
-        //     Stmtvp thenBranch = statement();
-        //     Stmtvp elseBranch = nullptr;
-        //     if (match({ELSE})) {
-        //         elseBranch = statement();
-        //     }
-
-        //     return new Ifv(condition, thenBranch, elseBranch);
-        // }
-
-        // Stmtvp varDeclaration(){
-        //     Token name = consume(IDENTIFIER, "Expect variable name.");
-
-        //     Exprvp initializer = expression();
-            
-
-        //     consume(RIGHT_PAREN, "Expect ')' to end SET call");
-        //     return new Setv(name, initializer);
-        // }
-
-
-        // Stmtvp expressionStatement() {
-        //     Exprvp expr = expression();
-        //     Stmtvp stmt = new Expressionv(expr);
-        //     return stmt;
-        // }
-
-        // Functionvp function_stmt() {
-        //     Token name = consume(IDENTIFIER, "Expect function name.");
-
-        //     consume(LEFT_PAREN, "Expect '(' after function name.");
-        //     vector<Token> parameters;
-
-        //     while (!check(RIGHT_PAREN)){
-        //         if (parameters.size() >= 255) {
-        //             Util::error(peek(), "Can't have more than 255 parameters.");
-        //         }
-
-        //         parameters.push_back(
-        //             consume(IDENTIFIER, "Expect parameter name.")
-        //         );
-        //     }
-        //     consume(RIGHT_PAREN, "Expect ')' after parameters.");
-
-        //     Exprvp body = expression();
-        //     return new Functionv(name, parameters, body);
-        // }
 
         Exprvp call_expr() {
             consume(LEFT_PAREN,  "Expect '(' at beginning of call expressions.");

@@ -1,4 +1,4 @@
-#include "include/interpreter.h"
+#include "../include/interpreter.h"
 
 rv Interpreter::evaluate(Exprvp expr){
     rv value = expr->accept(this);
@@ -89,8 +89,8 @@ void Interpreter::resolve(Exprvp expr, int depth) {
 Interpreter::Interpreter() {
     globals = new Environment();
     environment = globals;
-    LoxCallable* clockFunc = new Clock();
-    LoxCallable* isEqual = new Equal();
+    LispCallable* clockFunc = new Clock();
+    LispCallable* isEqual = new Equal();
 
     globals->defineFunc("clock", clockFunc); // TODO: figure this out, consider using a new map in Environment for just functions
 
@@ -192,7 +192,7 @@ rv Interpreter::visit(Callvp expr) {
 
 
 
-    LoxCallable* func = environment->getCallable(callee); // figure this out
+    LispCallable* func = environment->getCallable(callee); // figure this out
 
     
 
@@ -221,7 +221,7 @@ rv Interpreter::lookUpVariable(Token name, Exprvp expr) {
 
 
 rv Interpreter::visit(Functionvp expr){
-    LoxCallable* func = new LoxFunction(expr, environment);
+    LispCallable* func = new LispFunction(expr, environment);
     environment->defineFunc(expr->name.lexeme, func); // come up with our solution for this
     return null;
 }

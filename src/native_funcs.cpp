@@ -1,4 +1,4 @@
-#include "include/native_funcs.h"
+#include "../include/native_funcs.h"
 #include <sstream>
 
 typedef std::chrono::milliseconds milliseconds;

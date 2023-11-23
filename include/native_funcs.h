@@ -1,152 +1,15 @@
 #pragma once
 
-#include "include/interpreter.h"
-#include "include/lox_callable.h"
+#include "interpreter.h"
+#include "lisp_callable.h"
 #include <string>
-#include "include/types.h"
+#include "types.h"
 #include <vector>
 #include <chrono>
 
 typedef std::chrono::milliseconds milliseconds;
 
-class Clock : public LoxCallable{
-    public:
-        int arity();
-
-        rv call(
-            Interpreter* interpreter,
-            std::vector<Exprvp> arguments,
-            Token calleeToken
-        );
-
-        std::string toString();
-};
-
-// class CallableWrapper: public LoxCallable{
-//     private:
-//         int arityProp;
-//         std::string toStringProp;
-//     public:
-//         CallableWrapper (int arityProp, std::string toStringProp, rv (func*) ){
-
-//         }
-//         int arity();
-
-//         rv call(
-//             Interpreter* interpreter,
-//             std::vector<Exprvp> arguments,
-//             Token calleeToken
-//         );
-
-//         std::string toString();
-// }
-
-
-class Add : public LoxCallable{
-    public:
-        int arity();
-
-        rv call(
-            Interpreter* interpreter,
-            std::vector<Exprvp> arguments,
-            Token calleeToken
-        );
-
-        std::string toString();
-};
-
-class Sub : public LoxCallable{
-    public:
-        int arity();
-
-        rv call(
-            Interpreter* interpreter,
-            std::vector<Exprvp> arguments,
-            Token calleeToken
-        );
-
-        std::string toString();
-};
-
-class Divide : public LoxCallable{
-    public:
-        int arity();
-
-        rv call(
-            Interpreter* interpreter,
-            std::vector<Exprvp> arguments,
-            Token calleeToken
-        );
-
-        std::string toString();
-};
-
-class Mul : public LoxCallable{
-    public:
-        int arity();
-
-        rv call(
-            Interpreter* interpreter,
-            std::vector<Exprvp> arguments,
-            Token calleeToken
-        );
-
-        std::string toString();
-};
-
-class Greater : public LoxCallable{
-    public:
-        int arity();
-
-        rv call(
-            Interpreter* interpreter,
-            std::vector<Exprvp> arguments,
-            Token calleeToken
-        );
-
-        std::string toString();
-};
-
-class GreaterEqual : public LoxCallable{
-    public:
-        int arity();
-
-        rv call(
-            Interpreter* interpreter,
-            std::vector<Exprvp> arguments,
-            Token calleeToken
-        );
-
-        std::string toString();
-};
-
-class Less : public LoxCallable{
-    public:
-        int arity();
-
-        rv call(
-            Interpreter* interpreter,
-            std::vector<Exprvp> arguments,
-            Token calleeToken
-        );
-
-        std::string toString();
-};
-
-class LessEqual : public LoxCallable{
-    public:
-        int arity();
-
-        rv call(
-            Interpreter* interpreter,
-            std::vector<Exprvp> arguments,
-            Token calleeToken
-        );
-
-        std::string toString();
-};
-
-class Equal : public LoxCallable{
+class Clock : public LispCallable{
     public:
         int arity();
 
@@ -160,7 +23,7 @@ class Equal : public LoxCallable{
 };
 
 
-class And : public LoxCallable{
+class Add : public LispCallable{
     public:
         int arity();
 
@@ -173,7 +36,98 @@ class And : public LoxCallable{
         std::string toString();
 };
 
-class Or : public LoxCallable{
+class Sub : public LispCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+class Divide : public LispCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+class Mul : public LispCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+class Greater : public LispCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+class GreaterEqual : public LispCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+class Less : public LispCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+class LessEqual : public LispCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+class Equal : public LispCallable{
     public:
         int arity();
 
@@ -187,7 +141,20 @@ class Or : public LoxCallable{
 };
 
 
-class Not : public LoxCallable{
+class And : public LispCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+class Or : public LispCallable{
     public:
         int arity();
 
@@ -201,7 +168,7 @@ class Not : public LoxCallable{
 };
 
 
-class Number : public LoxCallable{
+class Not : public LispCallable{
     public:
         int arity();
 
@@ -215,7 +182,7 @@ class Number : public LoxCallable{
 };
 
 
-class Symbol : public LoxCallable{
+class Number : public LispCallable{
     public:
         int arity();
 
@@ -229,7 +196,21 @@ class Symbol : public LoxCallable{
 };
 
 
-class Nil : public LoxCallable{
+class Symbol : public LispCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+
+class Nil : public LispCallable{
     public:
         int arity();
 
@@ -244,7 +225,7 @@ class Nil : public LoxCallable{
 
 
 
-class List : public LoxCallable{
+class List : public LispCallable{
     public:
         int arity();
 
@@ -259,7 +240,7 @@ class List : public LoxCallable{
 
 
 
-class Cond : public LoxCallable{
+class Cond : public LispCallable{
     public:
         int arity();
 
@@ -273,7 +254,7 @@ class Cond : public LoxCallable{
 };
 
 
-class MakeList : public LoxCallable{
+class MakeList : public LispCallable{
     public:
         int arity();
 
@@ -287,7 +268,7 @@ class MakeList : public LoxCallable{
 };
 
 
-class Car : public LoxCallable{
+class Car : public LispCallable{
     public:
         int arity();
 
@@ -301,7 +282,7 @@ class Car : public LoxCallable{
 };
 
 
-class Cdr : public LoxCallable{
+class Cdr : public LispCallable{
     public:
         int arity();
 
@@ -316,7 +297,7 @@ class Cdr : public LoxCallable{
 
 
 
-class Cons : public LoxCallable{
+class Cons : public LispCallable{
     public:
         int arity();
 

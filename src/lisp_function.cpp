@@ -1,11 +1,11 @@
-#include "include/lox_function.h"
+#include "../include/lisp_function.h"
 
-LoxFunction::LoxFunction(Functionvp declaration, Environment* closure){
+LispFunction::LispFunction(Functionvp declaration, Environment* closure){
     this->closure = closure;
     this->declaration = declaration;
 }
 
-rv LoxFunction::call(Interpreter* interpreter, std::vector<Exprvp> arguments, Token calleeToken){
+rv LispFunction::call(Interpreter* interpreter, std::vector<Exprvp> arguments, Token calleeToken){
     Environment* environment = new Environment(closure);
     
     for (int i = 0; i < declaration->params.size(); i++) {
@@ -18,10 +18,10 @@ rv LoxFunction::call(Interpreter* interpreter, std::vector<Exprvp> arguments, To
     return interpreter->executeBlock(declaration->body, environment);
 }
 
-int LoxFunction::arity(){
+int LispFunction::arity(){
     return declaration->params.size();
 }
 
-std::string LoxFunction::toString() {
+std::string LispFunction::toString() {
     return "<fn " + declaration->name.lexeme + ">";
 }

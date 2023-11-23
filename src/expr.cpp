@@ -2,7 +2,7 @@
 #define EXPR
 #include <string>
 #include <vector>
-#include "token.h"
+#include "../include/token.h"
 
 using namespace std;
 

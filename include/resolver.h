@@ -1,9 +1,9 @@
 #pragma once
 
-#include "include/types.h"
-#include "include/interpreter.h"
+#include "types.h"
+#include "interpreter.h"
 #include <unordered_map>
-#include "helper/custom_stack.h"
+#include "../helper/custom_stack.h"
 
 typedef std::unordered_map<std::string, bool> Mapsb;
 
