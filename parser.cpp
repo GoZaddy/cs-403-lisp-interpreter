@@ -55,10 +55,16 @@ class Parser {
         }
 
         Exprvp expression(){
-            if (check(LEFT_PAREN)){
-                return call_expr();
+            try {
+                if (check(LEFT_PAREN)){
+                    return call_expr();
+                }
+                return primary();
+            } catch(string error){
+                synchronize();
+                return nullptr;
             }
-            return primary();
+            
         }
 
         // Stmtvp declaration(){
@@ -281,17 +287,10 @@ class Parser {
             // advance();
 
             // while (!isAtEnd()){
-            //     if (previous().type == SEMICOLON) return;
+            //     if (previous().type == RIGHT_PAREN) return;
 
             //     switch (peek().type){
-            //         case CLASS:
-            //         case FUN:
-            //         case VAR:
-            //         case FOR:
-            //         case IF:
-            //         case WHILE:
-            //         case PRINT:
-            //         case RETURN:
+            //         case LEFT_PAREN:
             //             return;
             //     }
 

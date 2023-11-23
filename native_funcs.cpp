@@ -392,10 +392,11 @@ rv Cond::call(
 
     for(int i = 0; i < args.size(); i = i+2){
         expression = interpreter->evaluate(args[i]);
-        res = interpreter->evaluate(args[i+1]);
+        
+
 
         if (interpreter->isTruthy(expression)){
-            return res;
+            return interpreter->evaluate(args[i+1]);;
         }
     }
     

@@ -147,7 +147,7 @@ rv Interpreter::executeBlock(
     catch(string error){
         std::cerr << error << endl;
     }
-    catch(...){}
+    catch(...){std::cerr << "an unknown error occurred" << endl;}
 
     this->environment = previous;
 
@@ -183,7 +183,6 @@ rv Interpreter::visit(Callvp expr) {
         callee = "()"+callee;
         calleeToken = ((Opvp) (expr->callee))->operatorToken;
     } else {
-        cerr << "callee type: " << expr->callee->getType() << endl;
         throw Util::runtimeError(calleeToken, "Can only call functions and operators. Can't call "+callee);
     }
 
@@ -202,6 +201,8 @@ rv Interpreter::visit(Callvp expr) {
             std::to_string(func->arity()) + " arguments but got " +
             std::to_string(expr->arguments.size()) + ". Occurred when calling: " + calleeToken.lexeme);
     }
+
+    
     return func->call(this, expr->arguments, calleeToken);
 }
 
@@ -232,11 +233,7 @@ rv Interpreter::visit(Printvp expr) {
 
 
 rv Interpreter::visit(Setvp stmt){
-    string value = "";
-    if (stmt->initializer != nullptr){
-        value = evaluate(stmt->initializer);
-    }
-
+    string value = evaluate(stmt->initializer);
     environment->define(stmt->name.lexeme, value);
     return null;
 }
