@@ -24,6 +24,8 @@ g++ -std=c++11 src/main.cpp src/scanner.cpp src/token.cpp src/util.cpp src/parse
 
 In the root directory, you will find my solution to the blackjack and bowling problems assigned earlier in the semester. You can run these files using the following shell command:
 
+(blackjack.lsp and bowling.lsp are file names. Replace these with a suitable file name to run that file)
+
 For windows:
 ```
 ./a.exe blackjack.lsp
@@ -37,6 +39,20 @@ For mac/linux:
 ./a.out blackjack.lsp
 
 ./a.out bowling.lsp
+```
+
+## REPL
+
+You can also spin up a yisp REPL session by running:
+
+(Windows)
+```
+a.exe
+```
+
+(Mac/Linux)
+```
+a.out
 ```
 
 ## What doesn't work / what works differently than you might expect
@@ -60,7 +76,7 @@ The only supported ways to work with lists are
 - `if` is not supported but `cond` is
 - Unnecessary nesting will throw errors. For example: `(((((+ 1 2)))))` should be written as `(+ 1 2)`
 
-- A cons operation will a valid list output will simply return a list:
+- A cons operation with a valid list output will simply return a list:
 ```
 (cons 1 ()) ;; returns (1)
 (cons 1 2) ;; returns (1 . 2)
