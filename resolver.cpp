@@ -71,8 +71,6 @@ rv Resolver::visit(Variablevp expr) {
             "Can't read local variable in its own initializer.");
     }
 
-    cout << "line 74" << endl;
-
     resolveLocal(expr, expr->name);
     return null;
 }
@@ -81,7 +79,6 @@ void Resolver::resolveLocal(Exprvp expr, Token name) {
     if (!scopes->empty()){
         Mapsb* currScope = scopes->peek();
         for (int i = scopes->size() - 1; i >= 0; i--) {
-            cout << "i: " << i << endl;
             if (scopes->at(i)->find(name.lexeme) != scopes->at(i)->end()) {
                 interpreter->resolve(expr, scopes->size() - 1 - i);
                 return;
@@ -137,6 +134,10 @@ rv Resolver:: visit(Litvp expr) {
 }
 
 rv Resolver:: visit(Opvp expr) {
+    return null;
+}
+
+rv Resolver::visit(Printvp expr){
     return null;
 }
 

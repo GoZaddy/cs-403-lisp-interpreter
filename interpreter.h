@@ -11,6 +11,7 @@
 #include "native_funcs.h"
 #include "lox_callable.h"
 #include "lox_function.h"
+#include <sstream>
 
 class Interpreter : public ExprVisv{
     private:
@@ -27,7 +28,13 @@ class Interpreter : public ExprVisv{
 
         bool isCallable(string expr);
 
+        bool isList(string expr);
+
+        bool isConsCell(rv expr);
+
         bool isEqual(rv a, rv b);
+
+        bool isSymbol(string expr);
 
         void checkNumberOperand(Token operatorToken, rv operand);
 
@@ -64,6 +71,8 @@ class Interpreter : public ExprVisv{
         rv visit(Functionvp stmt);
 
         rv visit(Opvp expr);
+
+        rv visit(Printvp expr);
 
         void resolve(Exprvp expr, int depth);
 
@@ -102,6 +111,14 @@ class Interpreter : public ExprVisv{
         friend class LoxFunction;
 
         friend class Cond;
+
+        friend class MakeList;
+
+        friend class Car;
+
+        friend class Cdr;
+
+        friend class Cons;
 
 };
 

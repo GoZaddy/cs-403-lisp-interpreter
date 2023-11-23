@@ -8,7 +8,7 @@
 enum TokenType {
   // Single-character tokens.
   LEFT_PAREN, RIGHT_PAREN,
-  DOT, MINUS, PLUS, SLASH, STAR,
+  MINUS, PLUS, SLASH, STAR, QUOTE,
 
   // One or two character tokens.
   EQUAL_EQUAL,
@@ -22,7 +22,7 @@ enum TokenType {
   CELL, NIL,
 
   // Keywords.
-  FALSE, DEFINE, TRUE, COND, SET,
+  DEFINE, COND, SET,
 
   END_OF_FILE
 };

@@ -274,4 +274,60 @@ class Cond : public LoxCallable{
 };
 
 
+class MakeList : public LoxCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+
+class Car : public LoxCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+
+class Cdr : public LoxCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
+
+
+class Cons : public LoxCallable{
+    public:
+        int arity();
+
+        rv call(
+            Interpreter* interpreter,
+            std::vector<Exprvp> arguments,
+            Token calleeToken
+        );
+
+        std::string toString();
+};
+
 #endif

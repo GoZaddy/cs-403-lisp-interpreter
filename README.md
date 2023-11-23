@@ -1,20 +1,25 @@
 # Lisp Interpreter
 
 ## What's left??
-- Cons function
-- Cons cell concepts
-- List concept - closely tied to literals
-- Literals
-- car
-- cdr
-- List  -> function to make a list out of arguments
+- Cons function - checkk
+- Cons cell concepts - checkk
+- List concept - closely tied to literals - checkk
+- Literals - checkk
+- car - checkk
+- cdr - checkk
+- List  -> function to make a list out of arguments - checkk
+- using minus to make a negative number => (- 20) => -20
+
+
+# shortcomings
+(- - 2) => doesn't get evaluated - throws runtime error
 
 
 
 
 # Run instructions
 ```
-g++ -std=c++11 main.cpp scanner.cpp token.cpp util.cpp parser.cpp expr.cpp stmt.cpp interpreter.cpp return.cpp lox_function.cpp native_funcs.cpp environment.cpp resolver.cpp
+g++ -std=c++11 main.cpp scanner.cpp token.cpp util.cpp parser.cpp expr.cpp interpreter.cpp lox_function.cpp native_funcs.cpp environment.cpp resolver.cpp
 ```
 
 To run AST (Abstract Syntax Tool) generator tool:

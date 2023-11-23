@@ -190,13 +190,10 @@ class Parser {
 
 
         Exprvp primary(){
-            if (match({FALSE})) {
-                return new Litv("'f");
+            if (match({QUOTE})){
+                return quote();
             }
-
-            if (match({TRUE})) {
-                return new Litv("'t");
-            }
+            
 
             if (match({NIL})) {
                 return new Litv("()");
@@ -217,6 +214,57 @@ class Parser {
 
             if (match({IDENTIFIER})){
                 return new Variablev(previous());
+            }
+
+            throw parseError(peek(), "Expect expression");
+            return nullptr;
+        }
+
+        Exprvp quote(){
+            if (match({QUOTE})){
+                Exprvp recur = quote();
+                if (recur->getType() != "Literal"){
+                    throw parseError(peek(), "Expect expression for quote operation");
+                }
+                return new Litv("(quote "+((Litvp) recur)->value+")");
+            }
+            if (match({NIL})) {
+                return new Litv("()");
+            }
+
+            // operators
+            if (match({
+                PLUS, MINUS, SLASH, STAR, EQUAL_EQUAL,
+                GREATER, GREATER_EQUAL, LESS, LESS_EQUAL
+            })){
+                return new Litv(previous().lexeme);
+            }
+            
+
+            if (match({NUMBER, STRING})) {
+                return new Litv(previous().literal);
+            }
+
+            if (match({IDENTIFIER})){
+                return new Litv(previous().lexeme);
+            }
+
+            if (match({LEFT_PAREN})){
+                string list = "(";
+                while(!check(RIGHT_PAREN)){
+                    Exprvp elem = quote();
+
+                    if (elem->getType() != "Literal"){
+                        throw parseError(peek(), "Expect expression for quote operation");
+                    }
+                    list += ((Litvp) elem)->value + " ";
+                }
+                consume(RIGHT_PAREN, "Expect ')' at end of list literal");
+
+                list.pop_back(); // remove trailing space character
+                list += ")";
+
+                return new Litv(list);
             }
 
             throw parseError(peek(), "Expect expression");

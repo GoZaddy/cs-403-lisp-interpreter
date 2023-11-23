@@ -40,9 +40,9 @@ void run(string source){
     AstPrinter asp;
     
 
-    for(auto expr : exprs){
-        cout << asp.print(expr) << endl;
-    }
+    // for(auto expr : exprs){
+    //     cout << asp.print(expr) << endl;
+    // }
 
 
     

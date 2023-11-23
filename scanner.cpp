@@ -11,8 +11,7 @@ using namespace std;
 
 
 const unordered_map<string, TokenType> Scanner::keywords = {
-        {"'f", FALSE},
-        {"'t", TRUE},
+        {"nil", NIL},
         {"define", DEFINE},
         {"set", SET},
 };
@@ -141,7 +140,6 @@ void Scanner::scanToken(){
             }
             break;
         case ')': addToken(RIGHT_PAREN); break;
-        case '.': addToken(DOT); break;
         case '-': addToken(MINUS); break;
         case '+': addToken(PLUS); break;
         case '*': addToken(STAR); break;
@@ -175,6 +173,9 @@ void Scanner::scanToken(){
             break;
         case '"':
             stringFunc();
+            break;
+        case '\'':
+            addToken(QUOTE);
             break;
         default:
             if (isdigit(c)){

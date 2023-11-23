@@ -30,6 +30,10 @@ class Op;
 
 
 template <typename T>
+class Print;
+
+
+template <typename T>
 class Variable;
 
 
@@ -112,6 +116,23 @@ class Op: public Expr<T> {
 };
 
 template <typename T>
+class Print: public Expr<T> {
+	public:
+		Expr<T>* expr;
+		Print(Expr<T>* expr) {
+			this->expr = expr;
+		}
+
+		T accept(ExprVisitor<T>* visitor) {
+			return visitor->visit(this);
+		}
+
+		string getType() {
+			return "Print";
+		}
+};
+
+template <typename T>
 class Variable: public Expr<T> {
 	public:
 		Token name;
@@ -176,6 +197,7 @@ class ExprVisitor {
 		virtual T visit(Grouping<T>* expr) = 0;
 		virtual T visit(Literal<T>* expr) = 0;
 		virtual T visit(Op<T>* expr) = 0;
+		virtual T visit(Print<T>* expr) = 0;
 		virtual T visit(Variable<T>* expr) = 0;
 		virtual T visit(Set<T>* expr) = 0;
 		virtual T visit(Function<T>* expr) = 0;

@@ -219,6 +219,7 @@ int main(int argc, char *argv[]){
       "Grouping : Expr<T>* expression",
       "Literal  : string value",
       "Op       : Token operatorToken",
+      "Print    : Expr<T>* expr",
       "Variable : Token name",
       "Set        : Token name, Expr<T>* initializer",
       "Function   : Token name, std::vector<Token> params, Expr<T>* body"

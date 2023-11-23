@@ -54,6 +54,8 @@ class Resolver: ExprVisv{
 
         rv visit(Functionvp stmt);
 
+        rv visit(Printvp expr);
+
 };
 
 

@@ -7,9 +7,23 @@ rv Interpreter::evaluate(Exprvp expr){
 }
 bool Interpreter::isTruthy(rv object){
     if (object == "()") return false; // TODO: what other values could return false
-    if (object == "'t") return true;
-    if (object == "'f") return false;
+    if (object == "t") return true;
+    if (object == "f") return false;
     return true;
+}
+
+bool Interpreter::isConsCell(rv expr){
+    stringstream ss(expr);
+    string first, dot, second;
+
+    ss >> first >> dot >> second;
+
+    if ((first.size() + dot.size() + second.size()+2) == expr.size()){
+        if ((first[0] == '(') && (dot == ".") && (second[second.size()-1] == ')')){
+            return true;
+        }
+    }
+    return false;
 }
 
 bool Interpreter::isStringLiteral(string literal){
@@ -22,9 +36,24 @@ bool Interpreter::isNumberLiteral(string literal){
     return end != literal.c_str() && *end == '\0';
 }
 
+bool Interpreter::isSymbol(string expr){
+    return !isList(expr) &&
+        !isStringLiteral(expr) &&
+        !isNumberLiteral(expr);
+}
+
 bool Interpreter::isCallable(string expr){
     if (expr.size() > 2){
         if (expr[0] == '(' && expr[1] == ')'){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Interpreter::isList(string expr){
+    if (expr.size() > 2 && expr[0] == '(' && expr[expr.size()-1] == ')'){
+        if (!isConsCell(expr)){
             return true;
         }
     }
@@ -42,7 +71,7 @@ void Interpreter::checkNumberOperand(Token operatorToken, rv operand){
 
 void Interpreter::checkNumberOperands(Token operatorToken, rv left, rv right){
     if (isNumberLiteral(left) && isNumberLiteral(right)) return;
-    throw Util::runtimeError(operatorToken, "Operands must be numbers");
+    throw Util::runtimeError(operatorToken, "Operands must be numbers. Instead: "+ left + ", "+right);
 }
 
 string Interpreter::stripTrailingZeroes(rv text){
@@ -83,8 +112,11 @@ Interpreter::Interpreter() {
     globals->defineFunc("nil?", new Nil());
     globals->defineFunc("eq?", isEqual);
     globals->defineFunc("list?", new List());
+    globals->defineFunc("list", new MakeList());
+    globals->defineFunc("car", new Car());
+    globals->defineFunc("cdr", new Cdr());
     globals->defineFunc("cond", new Cond());
-
+    globals->defineFunc("cons", new Cons());
 
     
 }
@@ -92,7 +124,7 @@ void Interpreter::interpret(std::vector<Exprvp> expr){
     rv res;
     try{
         for (int i = 0; i < expr.size(); ++i){
-            res = evaluate(expr[i]);
+            res = evaluate(new Printv(expr[i]));
             if (res != ""){
                 cout << res << endl;
             }
@@ -142,7 +174,7 @@ rv Interpreter::visit(Opvp expr){
 rv Interpreter::visit(Callvp expr) {
     rv callee = evaluate(expr->callee);
 
-    cout << "callee: " << callee << endl;
+    // cout << "callee: " << callee << endl;
 
     Token calleeToken;
     if (expr->callee->getType() == "Variable"){
@@ -152,11 +184,11 @@ rv Interpreter::visit(Callvp expr) {
         calleeToken = ((Opvp) (expr->callee))->operatorToken;
     } else {
         cerr << "callee type: " << expr->callee->getType() << endl;
-        throw Util::runtimeError(calleeToken, "Can only call functions and operators.");
+        throw Util::runtimeError(calleeToken, "Can only call functions and operators. Can't call "+callee);
     }
 
     if (!isCallable(callee)){
-        throw Util::runtimeError(calleeToken, "Can only call functions and operators.");
+        throw Util::runtimeError(calleeToken, "Can only call functions and operators. Can't call "+callee);
     }
 
 
@@ -168,7 +200,7 @@ rv Interpreter::visit(Callvp expr) {
     if (func->arity() != -1 && expr->arguments.size() != func->arity()) {
         throw Util::runtimeError(calleeToken, "Expected " +
             std::to_string(func->arity()) + " arguments but got " +
-            std::to_string(expr->arguments.size()) + ".");
+            std::to_string(expr->arguments.size()) + ". Occurred when calling: " + calleeToken.lexeme);
     }
     return func->call(this, expr->arguments, calleeToken);
 }
@@ -190,17 +222,13 @@ rv Interpreter::lookUpVariable(Token name, Exprvp expr) {
 rv Interpreter::visit(Functionvp expr){
     LoxCallable* func = new LoxFunction(expr, environment);
     environment->defineFunc(expr->name.lexeme, func); // come up with our solution for this
-    return "";
+    return null;
 }
 
-// rv Interpreter::visit(Ifvp stmt) {
-//     if (isTruthy(evaluate(stmt->condition))) {
-//         execute(stmt->thenBranch);
-//     } else if (stmt->elseBranch != nullptr) {
-//         execute(stmt->elseBranch);
-//     }
-//     return "";
-// }
+rv Interpreter::visit(Printvp expr) {
+    rv value = evaluate(expr->expr);
+    return value;
+}
 
 
 rv Interpreter::visit(Setvp stmt){
@@ -210,5 +238,5 @@ rv Interpreter::visit(Setvp stmt){
     }
 
     environment->define(stmt->name.lexeme, value);
-    return "";
+    return null;
 }

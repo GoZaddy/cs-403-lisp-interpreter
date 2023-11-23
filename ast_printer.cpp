@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include "token.h"
-#include "expr.cpp"
+#include "types.h"
 
 using namespace std;
 
@@ -73,6 +73,10 @@ class AstPrinter: public ExprVisitor<string> {
 
         string visit(Op<string>* expr) {
             return expr->operatorToken.lexeme;
+        }
+
+        string visit(Printvp expr){
+            return print(expr->expr);
         }
 
 
