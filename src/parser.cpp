@@ -55,15 +55,11 @@ class Parser {
         }
 
         Exprvp expression(){
-            try {
-                if (check(LEFT_PAREN)){
-                    return call_expr();
-                }
-                return primary();
-            } catch(string error){
-                synchronize();
-                return nullptr;
+            if (check(LEFT_PAREN)){
+                return call_expr();
             }
+            return primary();
+            
             
         }
 
@@ -78,7 +74,7 @@ class Parser {
                 return set_rest();
             }
 
-            Exprvp expr = primary();
+            Exprvp expr = expression();
 
             vector<Exprvp> arguments;
             while(!check(RIGHT_PAREN)){
@@ -245,6 +241,7 @@ class Parser {
                 }
             } catch(string error){
                 std::cerr << error << endl;
+                return expr;
             }
             
             

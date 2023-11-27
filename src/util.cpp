@@ -26,6 +26,12 @@ std::string Util::runtimeError(Token token, std::string message){
     return "Runtime error!";
 }
 
+std::string Util::runtimeError(std::string message){
+    std::cerr << message << "\n" << std::endl;
+    hadRuntimeError = true;
+    return "Runtime error!";
+}
+
 double Util::doub(std::string input){
     return std::stod(input);
 }

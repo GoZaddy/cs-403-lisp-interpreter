@@ -19,4 +19,6 @@ class Util{
 
         static std::string runtimeError(Token token, std::string message);
 
+        static std::string runtimeError(std::string message);
+
 };

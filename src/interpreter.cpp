@@ -183,7 +183,7 @@ rv Interpreter::visit(Callvp expr) {
         callee = "()"+callee;
         calleeToken = ((Opvp) (expr->callee))->operatorToken;
     } else {
-        throw Util::runtimeError(calleeToken, "Can only call functions and operators. Can't call "+callee);
+        throw Util::runtimeError("Can only call functions and operators. Can't call "+callee);
     }
 
     if (!isCallable(callee)){
