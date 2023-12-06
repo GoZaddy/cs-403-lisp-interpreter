@@ -71,6 +71,8 @@ int runFile(string path){
 
     string fileContent = buffer.str();
 
+    fileStream.close();
+    
     run(fileContent);
     
     if (Util::hadError) return 65;
