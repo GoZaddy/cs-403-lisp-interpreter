@@ -1,4 +1,5 @@
 ;; CS 403 Bowling project in Yisp
+;; Test passes!
 
 ;; gets list[0]
 (define first_value (listt) (
@@ -102,3 +103,11 @@
 (bowling '(5 3 5 3  3 5 5 3  3 5 3 5  6 2 2 6  7 1 1 7  ));; 80
 (bowling '(0 0 0 0     0 0 0 0        0 0 0 0      0 0 0 0     0 0 10 5 4)) ;; 19, strike in 10 frame
 (bowling '(0 0 0 0     0 0 0 0        0 0 0 0      0 0 0 0     10 5 4)) ;; 28, strike in 9th frame
+
+
+;; Expected output:
+;; 0
+;; 300
+;; 80
+;; 19
+;; 28

@@ -122,8 +122,12 @@ void Scanner::identifier(){
     while (isAlphaNumeric(peek())){ advance();}
 
     string text = source.substr(start, current-start);
-    if (keywords.find(text) != keywords.end()){
-        addToken(keywords.at(text));
+    string key;
+    for(int i = 0; i < text.size(); ++i){
+        key += tolower(text[i]);
+    }
+    if (keywords.find(key) != keywords.end()){
+        addToken(keywords.at(key));
     } else {
         addToken(IDENTIFIER);
     }

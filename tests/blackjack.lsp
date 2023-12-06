@@ -1,4 +1,5 @@
 ;; CS 403 Blackjack project in Yisp
+;; Test passes!
 
 
 (define get_regular_card_value (card) (
@@ -34,4 +35,11 @@
 (blackjack '(1 11)) ; 21
 (blackjack '(1 1)) ; 12
 (blackjack '(1 1 1 13)) ; 13
+
+
+
+;; Expected output:
+;; 21
+;; 12
+;; 13
 
