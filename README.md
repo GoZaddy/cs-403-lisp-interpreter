@@ -23,7 +23,7 @@ The core features listed in the project's requirements are all implemented. The 
 
 ## Testing
 
-In the root directory, you will find my solution to the blackjack and bowling problems assigned earlier in the semester. You can run these files using the following shell command:
+In the root directory, you will find my solution to the blackjack and bowling problems assigned earlier in the semester with some simpler tests in other files. You can run these files using the following shell command:
 
 (blackjack.lsp and bowling.lsp are file names. Replace these with a suitable file name to run that file)
 

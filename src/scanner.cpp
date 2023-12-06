@@ -147,6 +147,7 @@ void Scanner::scanToken(){
         case '-': addToken(MINUS); break;
         case '+': addToken(PLUS); break;
         case '*': addToken(STAR); break;
+        case '/': addToken(SLASH); break;
         case '=':
             if (match('=')){
                 addToken(EQUAL_EQUAL);
